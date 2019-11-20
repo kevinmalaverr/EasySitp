@@ -4,17 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.easysitp.easysitp.R;
 
 public class AcercadeFragment extends Fragment {
+
+    View vista;
+    Button botonVolver;
+
 
     private AcercadeViewModel acercadeViewModel;
 
@@ -22,14 +25,15 @@ public class AcercadeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         acercadeViewModel =
                 ViewModelProviders.of(this).get(AcercadeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_acercade, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        acercadeViewModel.getText().observe(this, new Observer<String>() {
+        View vista = inflater.inflate(R.layout.fragment_acercade, container, false);
+        botonVolver = vista.findViewById(R.id.boton_volver);
+
+        botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_acercade_to_nav_inicio);
             }
         });
-        return root;
+        return vista;
     }
 }

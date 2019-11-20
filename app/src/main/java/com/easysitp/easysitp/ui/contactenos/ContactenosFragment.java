@@ -4,17 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.easysitp.easysitp.R;
 
 public class ContactenosFragment extends Fragment {
+
+    View vista;
+    Button botonVolver;
 
     private ContactenosViewModel contactenosViewModel;
 
@@ -22,14 +24,15 @@ public class ContactenosFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         contactenosViewModel =
                 ViewModelProviders.of(this).get(ContactenosViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_contactenos, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        contactenosViewModel.getText().observe(this, new Observer<String>() {
+        vista = inflater.inflate(R.layout.fragment_contactenos, container, false);
+        botonVolver = vista.findViewById(R.id.boton_volver);
+
+        botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_nav_contactenos_to_nav_inicio);
             }
         });
-        return root;
+        return vista;
     }
 }
