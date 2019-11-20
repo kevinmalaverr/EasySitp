@@ -9,7 +9,11 @@
         android:id="@+id/nav_inicio"
         android:name="com.easysitp.easysitp.ui.Inicio.InicioFragment"
         android:label="@string/menu_inicio"
-        tools:layout="@layout/fragment_inicio" />
+        tools:layout="@layout/fragment_inicio">
+        <action
+            android:id="@+id/action_nav_inicio_to_nav_acercade"
+            app:destination="@id/nav_acercade" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_publicaciones"
