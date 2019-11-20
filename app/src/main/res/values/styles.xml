@@ -13,6 +13,11 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="AppThemeOscuro" parent="AppTheme">
+        <item name="colorPrimaryDark">@color/colorOscuro</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
 
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash</item>
