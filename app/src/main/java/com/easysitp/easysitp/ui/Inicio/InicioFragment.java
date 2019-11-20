@@ -2,17 +2,13 @@ package com.easysitp.easysitp.ui.Inicio;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
@@ -32,8 +28,8 @@ public class InicioFragment extends Fragment {
         inicioViewModel = ViewModelProviders.of(this).get(InicioViewModel.class);
 
         vista = inflater.inflate(R.layout.fragment_inicio, container, false);
-        botonGps = (Button) vista.findViewById(R.id.boton_gps);
-        barraInferior = (ConstraintLayout) vista.findViewById(R.id.barra_inferior);
+        botonGps = vista.findViewById(R.id.boton_gps);
+        barraInferior = vista.findViewById(R.id.barra_inferior);
 
 
         botonGps.setOnClickListener(new View.OnClickListener() { // evento click de botonGps
@@ -48,7 +44,7 @@ public class InicioFragment extends Fragment {
         barraInferior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_inicio_to_nav_acercade);
+                Navigation.findNavController(v).navigate(R.id.action_nav_inicio_to_nav_listarutas);
             }
         });
 
