@@ -9,7 +9,14 @@
         android:id="@+id/nav_inicio"
         android:name="com.easysitp.easysitp.ui.Inicio.InicioFragment"
         android:label="@string/menu_inicio"
-        tools:layout="@layout/fragment_inicio" />
+        tools:layout="@layout/fragment_inicio">
+        <action
+            android:id="@+id/action_nav_inicio_to_nav_acercade"
+            app:destination="@id/nav_acercade" />
+        <action
+            android:id="@+id/action_nav_inicio_to_nav_listarutas"
+            app:destination="@id/nav_listarutas" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_publicaciones"
@@ -34,5 +41,10 @@
         android:name="com.easysitp.easysitp.ui.logout.LogoutFragment"
         android:label="@string/menu_logout"
         tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/nav_listarutas"
+        android:name="com.easysitp.easysitp.ui.listarutas.ListaRutasFragment"
+        android:label="fragment_listarutas"
+        tools:layout="@layout/fragment_listarutas" />
 
 </navigation>
