@@ -44,7 +44,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="Sí tienes algun problema, duda o sugerencia. Envianos tu mensaje"
+        android:text="Sí tienes algun problema, duda o sugerencia. Envíanos tu mensaje"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/sugerencia"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
@@ -75,11 +75,13 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/caja_redonda_2"
         android:backgroundTint="@color/colorAccent"
+        android:onClick="enviar_sugerencia"
         android:text="Enviar"
         android:textColor="@color/colorBlanco"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/sugerencia" />
 </androidx.constraintlayout.widget.ConstraintLayout>
