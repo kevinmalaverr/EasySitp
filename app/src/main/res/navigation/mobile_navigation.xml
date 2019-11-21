@@ -11,9 +11,6 @@
         android:label="@string/menu_inicio"
         tools:layout="@layout/fragment_inicio">
         <action
-            android:id="@+id/action_nav_inicio_to_nav_acercade"
-            app:destination="@id/nav_acercade" />
-        <action
             android:id="@+id/action_nav_inicio_to_nav_listarutas"
             app:destination="@id/nav_listarutas" />
     </fragment>
@@ -22,29 +19,49 @@
         android:id="@+id/nav_publicaciones"
         android:name="com.easysitp.easysitp.ui.publicaciones.PublicacionesFragment"
         android:label="@string/menu_publicaciones"
-        tools:layout="@layout/fragment_publicaciones" />
+        tools:layout="@layout/fragment_publicaciones">
+        <action
+            android:id="@+id/action_nav_publicaciones_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_contactenos"
         android:name="com.easysitp.easysitp.ui.contactenos.ContactenosFragment"
         android:label="@string/menu_contactenos"
-        tools:layout="@layout/fragment_contactenos" />
+        tools:layout="@layout/fragment_contactenos">
+        <action
+            android:id="@+id/action_nav_contactenos_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_acercade"
         android:name="com.easysitp.easysitp.ui.acercade.AcercadeFragment"
         android:label="@string/menu_acercade"
-        tools:layout="@layout/fragment_acercade" />
+        tools:layout="@layout/fragment_acercade">
+        <action
+            android:id="@+id/action_nav_acercade_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_logout"
         android:name="com.easysitp.easysitp.ui.logout.LogoutFragment"
         android:label="@string/menu_logout"
-        tools:layout="@layout/fragment_logout" />
+        tools:layout="@layout/fragment_logout">
+        <action
+            android:id="@+id/action_nav_logout_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
+    </fragment>
     <fragment
         android:id="@+id/nav_listarutas"
         android:name="com.easysitp.easysitp.ui.listarutas.ListaRutasFragment"
         android:label="fragment_listarutas"
-        tools:layout="@layout/fragment_listarutas" />
+        tools:layout="@layout/fragment_listarutas">
+        <action
+            android:id="@+id/action_nav_listarutas_to_nav_inicio"
+            app:destination="@id/nav_inicio" />
+    </fragment>
 
 </navigation>
