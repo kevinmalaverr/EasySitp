@@ -55,6 +55,7 @@ public class ContactenosFragment extends Fragment {
                 envio_mensaje.put("Sugerencia",mensaje);
                 mRootReference.child("Mensaje de sugerencia").push().setValue(envio_mensaje);
                 sugerencia_enviar.setText("");
+                botonEnviar.setElevation(10);
             }
         });
 
