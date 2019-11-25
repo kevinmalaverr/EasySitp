@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "150922516868-2fjq50uvdm0t7s7qsjlanll3afjqpbde.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.easysitp.easysitp",
+            "certificate_hash": "fe8c62bf03b72b4c23e36a05d40aec1362bf402f"
+          }
+        },
+        {
           "client_id": "150922516868-39md29l20orr57fhnjuss2h89vjsp0vj.apps.googleusercontent.com",
           "client_type": 3
         }
