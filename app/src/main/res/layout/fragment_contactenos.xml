@@ -68,13 +68,13 @@
 
     <Button
         android:id="@+id/button3"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/caja_redonda_2"
-        android:backgroundTint="@color/colorAccent"
+        android:background="@drawable/ripple_morado"
         android:onClick="enviar_sugerencia"
         android:text="Enviar"
         android:textColor="@color/colorBlanco"

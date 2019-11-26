@@ -48,14 +48,14 @@ public class ContactenosFragment extends Fragment {
         botonEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                botonEnviar.setElevation(10);
+
                 String mensaje = sugerencia_enviar.getText().toString();
 
                 Map<String, Object> envio_mensaje = new HashMap<>();
                 envio_mensaje.put("Sugerencia",mensaje);
                 mRootReference.child("Mensaje de sugerencia").push().setValue(envio_mensaje);
                 sugerencia_enviar.setText("");
-                botonEnviar.setElevation(10);
+
             }
         });
 

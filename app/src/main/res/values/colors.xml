@@ -6,4 +6,8 @@
     <color name="colorAccent">#665EFF</color>
     <color name="colorBlanco">#FFFFFF</color>
     <color name="colorOscuro">#242E43</color>
+
+    <color name="colorRplMorado">#A5A0FF</color>
+    <color name="colorRplBlanco">#ABABAB</color>
+
 </resources>
