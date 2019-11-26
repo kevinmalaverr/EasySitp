@@ -2,8 +2,7 @@
     android:color="@color/colorRplBlanco">
 
     <item>
-        <shape android:shape="rectangle">
-            <corners android:radius="5dp"></corners>
+        <shape android:shape="oval">
             <solid android:color="@color/colorBlanco"></solid>
         </shape>
     </item>

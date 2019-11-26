@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class ContactenosFragment extends Fragment {
 
     View vista;
-    Button botonVolver;
+    ConstraintLayout botonVolver;
     Button botonEnviar;
     DatabaseReference mRootReference;
     EditText sugerencia_enviar;
