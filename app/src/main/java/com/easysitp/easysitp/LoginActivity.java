@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Toast.makeText(getApplicationContext(), " error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), " Acceso exitoso", Toast.LENGTH_SHORT).show();
             }
         });
     }

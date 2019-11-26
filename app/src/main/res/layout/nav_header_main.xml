@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:text="ingresa para poder usar el chat"
+        android:text="Usuario"
         android:textColor="@color/colorBlanco" />
 
 </LinearLayout>
