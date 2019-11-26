@@ -50,15 +50,7 @@ public class InicioFragment extends Fragment implements
         vista = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         barraInferior = vista.findViewById(R.id.barra_inferior);
-
-        botonGps.setOnClickListener(new View.OnClickListener() { // evento click de botonGps
-            @Override
-            public void onClick(View v) {
-                barraInferior.setVisibility(View.VISIBLE);
-                botonGps.setVisibility(View.INVISIBLE);
-
-            }
-        });
+        botonGps = vista.findViewById(R.id.boton_gps);
 
         barraInferior.setOnClickListener(new View.OnClickListener() {
             @Override
