@@ -4,22 +4,26 @@ import java.util.ArrayList;
 
 public class Parada {
 
-    private ArrayList<String> lista;
+    private ArrayList<Ruta> rutas = new ArrayList<Ruta>();
     private String nombre;
 
     public Parada(String nombre) {
         this.nombre = nombre;
     }
 
-    public void add(String string) {
-        this.lista.add(string);
+    public void add(Ruta ruta) {
+        this.rutas.add(ruta);
     }
 
-    public ArrayList<String> getLista() {
-        return this.lista;
+    public ArrayList<Ruta> getRutas() {
+        return this.rutas;
+    }
+
+    public String getNombre() {
+        return this.nombre;
     }
 
     public int numeroRutas() {
-        return this.lista.size();
+        return this.rutas.size();
     }
 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.easysitp.easysitp.Parada;
+import com.easysitp.easysitp.Paraderos;
 import com.easysitp.easysitp.PermissionUtils;
 import com.easysitp.easysitp.R;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,6 +48,9 @@ public class InicioFragment extends Fragment implements
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     Button botonGps;
     ConstraintLayout barraInferior; //barra inferior pequeña
+    TextView textoVerRutas;
+    TextView textoNombreParada;
+
     // interfaz
     View vista;  // permite accceder al fragment
     private boolean mPermissionDenied = false;
@@ -73,6 +79,8 @@ public class InicioFragment extends Fragment implements
 
         barraInferior = vista.findViewById(R.id.barra_inferior);
         botonGps = vista.findViewById(R.id.boton_gps);
+        textoVerRutas = vista.findViewById(R.id.texto_ver_rutas);
+        textoNombreParada = vista.findViewById(R.id.texto_nombre_ruta);
 
         barraInferior.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +103,8 @@ public class InicioFragment extends Fragment implements
         mMap.setOnMarkerClickListener(this);
         enableMyLocation();
 
+        Paraderos.ini();
+
 
         int height = 100;
         int width = 80;
@@ -105,34 +115,34 @@ public class InicioFragment extends Fragment implements
 
         estConcha = mMap.addMarker(new MarkerOptions()
                 .position(EST_CONCHA)
-                .title("Concha Acustica")
+                .title(Paraderos.paradaConcha.getNombre())
                 .icon(smallMarkerIcon));
-        estConcha.setTag(0);
+        estConcha.setTag(Paraderos.paradaConcha);
 
         estCyt = mMap.addMarker(new MarkerOptions()
                 .position(EST_CYT)
-                .title("CyT")
+                .title(Paraderos.paradaCyt.getNombre())
                 .icon(smallMarkerIcon));
-        estCyt.setTag(0);
+        estCyt.setTag(Paraderos.paradaCyt);
 
         estCade = mMap.addMarker(new MarkerOptions()
                 .position(EST_CADE)
-                .title("CADE")
+                .title(Paraderos.paradaCade.getNombre())
                 .icon(smallMarkerIcon));
-        estCade.setTag(0);
+        estCade.setTag(Paraderos.paradaCade);
 
 
         estSindu = mMap.addMarker(new MarkerOptions()
                 .position(EST_SINDU)
-                .title("Sindu")
+                .title(Paraderos.paradaSindu.getNombre())
                 .icon(smallMarkerIcon));
-        estSindu.setTag(0);
+        estSindu.setTag(Paraderos.paradaSindu);
 
         estEnfermeria = mMap.addMarker(new MarkerOptions()
                 .position(EST_ENFERMERIA)
-                .title("Facultad de Enfermieria")
+                .title(Paraderos.paradaEnfermeria.getNombre())
                 .icon(smallMarkerIcon));
-        estEnfermeria.setTag(0);
+        estEnfermeria.setTag(Paraderos.paradaEnfermeria);
 
 
     }
@@ -199,10 +209,9 @@ public class InicioFragment extends Fragment implements
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-
+        textoNombreParada.setText(Paraderos.nombreParada((Parada) marker.getTag()));
+        textoVerRutas.setText("Ver " + Paraderos.numeroRutas((Parada) marker.getTag()) + " Rutas disponibles");
         barraInferior.setVisibility(View.VISIBLE);
-
-
         return false;
     }
 }
