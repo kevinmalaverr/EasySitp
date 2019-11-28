@@ -15,12 +15,15 @@ import com.easysitp.easysitp.R;
 public class ListaRutasFragment extends Fragment {
 
     View vista;
+    View caja;
     Button botonVolver;
+    ViewGroup contenedor;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         vista = inflater.inflate(R.layout.fragment_listarutas, container, false);
         botonVolver = vista.findViewById(R.id.boton_volver);
+        contenedor = vista.findViewById(R.id.contenedor);
 
         botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,7 +32,17 @@ public class ListaRutasFragment extends Fragment {
             }
         });
 
+        addLayout();
+        addLayout();
+        addLayout();
+
         return vista;
+    }
+
+    private void addLayout() {
+        caja = LayoutInflater.from(getContext()).inflate(R.layout.caja_ruta, contenedor, false);
+
+        contenedor.addView(caja);
     }
 
 
