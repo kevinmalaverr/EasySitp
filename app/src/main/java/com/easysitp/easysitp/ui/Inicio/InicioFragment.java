@@ -2,6 +2,8 @@ package com.easysitp.easysitp.ui.Inicio;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,12 +26,18 @@ import com.easysitp.easysitp.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class InicioFragment extends Fragment implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback,
+        GoogleMap.OnMarkerClickListener {
 
     private InicioViewModel inicioViewModel;
 
@@ -41,6 +49,20 @@ public class InicioFragment extends Fragment implements
     View vista;  // permite accceder al fragment
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
+
+
+    // markers
+    private static final LatLng EST_CONCHA = new LatLng(4.638546, -74.087559);
+    private static final LatLng EST_CYT = new LatLng(4.638306, -74.084881);
+    private static final LatLng EST_CADE = new LatLng(4.637884, -74.081530);
+    private static final LatLng EST_SINDU = new LatLng(4.635797, -74.080880);
+    private static final LatLng EST_ENFERMERIA = new LatLng(4.635088, -74.085218);
+
+    private Marker estConcha;
+    private Marker estCyt;
+    private Marker estCade;
+    private Marker estSindu;
+    private Marker estEnfermeria;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -70,7 +92,49 @@ public class InicioFragment extends Fragment implements
         mMap = map;
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
+        mMap.setOnMarkerClickListener(this);
         enableMyLocation();
+
+
+        int height = 100;
+        int width = 80;
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_parada);
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        BitmapDescriptor smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
+
+
+        estConcha = mMap.addMarker(new MarkerOptions()
+                .position(EST_CONCHA)
+                .title("Concha Acustica")
+                .icon(smallMarkerIcon));
+        estConcha.setTag(0);
+
+        estCyt = mMap.addMarker(new MarkerOptions()
+                .position(EST_CYT)
+                .title("CyT")
+                .icon(smallMarkerIcon));
+        estCyt.setTag(0);
+
+        estCade = mMap.addMarker(new MarkerOptions()
+                .position(EST_CADE)
+                .title("CADE")
+                .icon(smallMarkerIcon));
+        estCade.setTag(0);
+
+
+        estSindu = mMap.addMarker(new MarkerOptions()
+                .position(EST_SINDU)
+                .title("Sindu")
+                .icon(smallMarkerIcon));
+        estSindu.setTag(0);
+
+        estEnfermeria = mMap.addMarker(new MarkerOptions()
+                .position(EST_ENFERMERIA)
+                .title("Facultad de Enfermieria")
+                .icon(smallMarkerIcon));
+        estEnfermeria.setTag(0);
+
+
     }
 
     /**
@@ -133,4 +197,12 @@ public class InicioFragment extends Fragment implements
         PermissionUtils.PermissionDeniedDialog.newInstance(true).show(getChildFragmentManager(), "dialog");
     }
 
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        barraInferior.setVisibility(View.VISIBLE);
+
+
+        return false;
+    }
 }

@@ -1,9 +1,10 @@
 package com.easysitp.easysitp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,24 +28,31 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ImageView imageView;
-    private TextView NombreUsuario;
-    private TextView TextCorreo;
-    private TextView TextidUsuario;
+    ImageView imageView;
 
     private GoogleSignInClient mSignInClient;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    TextView NombreUsuario;
+    TextView TextCorreo;
+    TextView TextidUsuario;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        NombreUsuario = (TextView) findViewById(R.id.NombreUsuario);
-        TextCorreo = (TextView) findViewById(R.id.TextCorreo);
-        TextidUsuario = (TextView) findViewById(R.id.TextidUusario);
         setContentView(R.layout.activity_main);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.nav_header_main, null);
+
+        imageView = view.findViewById(R.id.imageView);
+        NombreUsuario = view.findViewById(R.id.NombreUsuario);
+        TextCorreo = view.findViewById(R.id.TextCorreo);
+        TextidUsuario = view.findViewById(R.id.TextidUusario);
+
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -52,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mSignInClient = GoogleSignIn.getClient(this, gso);
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.addHeaderView(view);
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
