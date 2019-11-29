@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.easysitp.easysitp.Parada;
 import com.easysitp.easysitp.R;
+import com.easysitp.easysitp.Ruta;
 
 public class ListaRutasFragment extends Fragment {
 
@@ -32,17 +35,25 @@ public class ListaRutasFragment extends Fragment {
             }
         });
 
-        addLayout();
-        addLayout();
-        addLayout();
+
 
         return vista;
     }
 
-    private void addLayout() {
-        caja = LayoutInflater.from(getContext()).inflate(R.layout.caja_ruta, contenedor, false);
+    private void addcaja(Parada parada) {
+        for (int i = 0; i < parada.getRutas().size(); i++) {
+            Ruta ruta = parada.getRutas().get(i);
+            caja = LayoutInflater.from(getContext()).inflate(R.layout.caja_ruta, contenedor, false);
+            TextView nombreRuta = caja.findViewById(R.id.nombre_ruta);
+            TextView numeroRuta = caja.findViewById(R.id.numero_ruta);
+            TextView horaLlegada = caja.findViewById(R.id.hora_llegada);
+            TextView minutosRestantes = caja.findViewById(R.id.minutos_restantes);
 
-        contenedor.addView(caja);
+            nombreRuta.setText(ruta.NombreRuta);
+            numeroRuta.setText(ruta.numeroRuta);
+
+            contenedor.addView(caja);
+        }
     }
 
 

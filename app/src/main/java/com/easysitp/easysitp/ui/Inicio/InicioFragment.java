@@ -26,6 +26,7 @@ import com.easysitp.easysitp.Parada;
 import com.easysitp.easysitp.Paraderos;
 import com.easysitp.easysitp.PermissionUtils;
 import com.easysitp.easysitp.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -104,6 +105,9 @@ public class InicioFragment extends Fragment implements
         enableMyLocation();
 
         Paraderos.ini();
+
+        LatLng latLng = new LatLng(4.634450, -74.082563);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
 
         int height = 100;
