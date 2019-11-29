@@ -1,5 +1,7 @@
 package com.easysitp.easysitp;
 
+import java.util.ArrayList;
+
 public class Paraderos {
 
 
@@ -13,10 +15,17 @@ public class Paraderos {
     public static Ruta ruta_802;
     public static Ruta ruta_87;
 
+    public static ArrayList<Ruta> listaRutas;
+
     public static void ini() {
         ruta_c24 = new Ruta("C24", "Concha-Sindu");
         ruta_802 = new Ruta("802", "Enfermería-Cade");
         ruta_87 = new Ruta("87", "CyT-sindu");
+
+        listaRutas = new ArrayList<>();
+        listaRutas.add(ruta_87);
+        listaRutas.add(ruta_802);
+        listaRutas.add(ruta_c24);
 
         paradaCade = new Parada("CADE");
         paradaCade.add(ruta_c24);
@@ -44,5 +53,9 @@ public class Paraderos {
 
     public static String nombreParada(Parada parada) {
         return parada.getNombre();
+    }
+
+    public static ArrayList<Ruta> getRutas() {
+        return listaRutas;
     }
 }

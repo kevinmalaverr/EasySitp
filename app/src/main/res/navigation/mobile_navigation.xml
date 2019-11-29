@@ -36,6 +36,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_listaChat"
+        android:name="com.easysitp.easysitp.ui.listaChat.ListaChat"
+        android:label="@string/menu_contactenos"
+        tools:layout="@layout/fragment_lista_chat"></fragment>
+
+    <fragment
         android:id="@+id/nav_acercade"
         android:name="com.easysitp.easysitp.ui.acercade.AcercadeFragment"
         android:label="@string/menu_acercade"

@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,12 +51,15 @@ public class PublicacionesFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_publicaciones, container, false);
         botonVolver = vista.findViewById(R.id.boton_volver);
 
+        Bundle datosRecuperados = getArguments();
+        String parada = datosRecuperados.getString("RUTA");
+
         nombre = vista.findViewById(R.id.nombre);
         rvMensaje = vista.findViewById(R.id.rvMensaje);
         txtMensaje = vista.findViewById(R.id.txtMensaje);
         btnEnviar = vista.findViewById(R.id.btnEnviar);
         database= FirebaseDatabase.getInstance();
-        databaseReference= database.getReference("Chat");
+        databaseReference = database.getReference("Chat/" + parada);
 
         adapter = new AdapterMensajes(getContext());
         LinearLayoutManager l = new LinearLayoutManager(getContext());
@@ -115,7 +117,7 @@ public class PublicacionesFragment extends Fragment {
         botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_publicaciones_to_nav_inicio);
+
             }
         });
 
