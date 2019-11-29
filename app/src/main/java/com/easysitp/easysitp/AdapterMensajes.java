@@ -32,7 +32,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje>{
     @NonNull
     @Override
     public HolderMensaje onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(c).inflate(R.layout.card_view_mensajes, parent,false);
+        View v = LayoutInflater.from(c).inflate(R.layout.card_view_mensajes, parent, false);
         return new HolderMensaje(v);
     }
 
@@ -44,7 +44,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<HolderMensaje>{
 
         Long codigoHora= listMensaje.get(position).getHora();
         Date d= new Date(codigoHora);
-        SimpleDateFormat sdf= new SimpleDateFormat("hh:mm:ss a");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         holder.getHora().setText(sdf.format(d));
 
     }

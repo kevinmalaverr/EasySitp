@@ -1,44 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    cardview:cardCornerRadius="10sp">
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginBottom="4dp"
+    android:orientation="vertical"
+    cardview:cardBackgroundColor="@color/colorBlanco"
+    cardview:cardCornerRadius="10dp"
+    cardview:cardElevation="1dp"
+    cardview:cardMaxElevation="1dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/mensajeMensaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Paula"
                     android:layout_weight="1"
-                    android:padding="5dp">
-                </TextView>
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:text="Paula"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="15dp"
+                    cardview:fontFamily="sans-serif-medium"></TextView>
 
                 <TextView
                     android:id="@+id/horaMensaje"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00:00">
-                </TextView>
+                    android:padding="5dp"
+                    android:paddingEnd="10dp"
+                    android:text="00:00"
+                    android:textSize="10dp"
+                    cardview:fontFamily="sans-serif-light"></TextView>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/nombreMensaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Paula"
                 android:layout_weight="1"
-                android:padding="5sp">
+                android:padding="5dp"
+                android:paddingStart="10dp"
+                android:text="Paula">
 
             </TextView>
 
