@@ -1,11 +1,14 @@
 package com.easysitp.easysitp.ui.contactenos;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -49,18 +52,38 @@ public class ContactenosFragment extends Fragment {
         botonEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String mensaje = sugerencia_enviar.getText().toString();
-
-                Map<String, Object> envio_mensaje = new HashMap<>();
-                envio_mensaje.put("Sugerencia",mensaje);
-                mRootReference.child("Mensaje de sugerencia").push().setValue(envio_mensaje);
-                sugerencia_enviar.setText("");
-
+                mostrarDialogoBasico();
             }
         });
 
         return vista;
+    }
+
+    private void mostrarDialogoBasico() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Enviar");
+        builder.setMessage("¿Quieres enviar el mensaje?")
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String mensaje = sugerencia_enviar.getText().toString();
+
+                        Map<String, Object> envio_mensaje = new HashMap<>();
+                        envio_mensaje.put("Sugerencia", mensaje);
+                        mRootReference.child("Mensaje de sugerencia").push().setValue(envio_mensaje);
+                        sugerencia_enviar.setText("");
+                        Toast.makeText(getActivity(), "Mensaje enviado", Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 
 }
