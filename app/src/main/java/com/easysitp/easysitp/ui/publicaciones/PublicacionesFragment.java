@@ -35,6 +35,7 @@ public class PublicacionesFragment extends Fragment {
     private RecyclerView rvMensaje;
     private EditText txtMensaje;
     private Button btnEnviar;
+    private TextView tituloNumeroRuta;
 
     private AdapterMensajes adapter;
 
@@ -52,14 +53,16 @@ public class PublicacionesFragment extends Fragment {
         botonVolver = vista.findViewById(R.id.boton_volver);
 
         Bundle datosRecuperados = getArguments();
-        String parada = datosRecuperados.getString("RUTA");
+        String ruta = datosRecuperados.getString("RUTA");
 
         nombre = vista.findViewById(R.id.nombre);
         rvMensaje = vista.findViewById(R.id.rvMensaje);
         txtMensaje = vista.findViewById(R.id.txtMensaje);
         btnEnviar = vista.findViewById(R.id.btnEnviar);
+        tituloNumeroRuta = vista.findViewById(R.id.titulo_numero_ruta);
+        tituloNumeroRuta.setText(ruta);
         database= FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Chat/" + parada);
+        databaseReference = database.getReference("Chat/" + ruta);
 
         adapter = new AdapterMensajes(getContext());
         LinearLayoutManager l = new LinearLayoutManager(getContext());

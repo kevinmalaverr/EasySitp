@@ -34,8 +34,6 @@ public class ListaChat extends Fragment {
         // Inflate the layout for this fragment}
         vista = inflater.inflate(R.layout.fragment_lista_chat, container, false);
         contenedor = vista.findViewById(R.id.contenedor);
-        texto = vista.findViewById(R.id.texto);
-        texto.setText("jsdhgkslgkjk");
 
         addChats(Paraderos.getRutas());
         return vista;
