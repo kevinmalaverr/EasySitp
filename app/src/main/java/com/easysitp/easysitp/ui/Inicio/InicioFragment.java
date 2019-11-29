@@ -19,13 +19,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import com.easysitp.easysitp.Parada;
 import com.easysitp.easysitp.Paraderos;
 import com.easysitp.easysitp.PermissionUtils;
 import com.easysitp.easysitp.R;
+import com.easysitp.easysitp.ui.listarutas.ListaRutasFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -71,6 +73,8 @@ public class InicioFragment extends Fragment implements
     private Marker estSindu;
     private Marker estEnfermeria;
 
+    public Parada parada;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +90,17 @@ public class InicioFragment extends Fragment implements
         barraInferior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_inicio_to_nav_listarutas);
+                Bundle datosAEnviar = new Bundle();
+                datosAEnviar.putSerializable("PARADA", parada);
+                Fragment fragmento = new ListaRutasFragment();
+                fragmento.setArguments(datosAEnviar);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragmento);
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.commit();
+
             }
         });
 
@@ -214,6 +228,10 @@ public class InicioFragment extends Fragment implements
         textoNombreParada.setText(Paraderos.nombreParada((Parada) marker.getTag()));
         textoVerRutas.setText("Ver " + Paraderos.numeroRutas((Parada) marker.getTag()) + " Rutas disponibles");
         barraInferior.setVisibility(View.VISIBLE);
+        this.parada = (Parada) marker.getTag();
+
+
+
         return false;
     }
 }

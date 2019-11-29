@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.easysitp.easysitp.Parada;
 import com.easysitp.easysitp.R;
@@ -28,12 +27,12 @@ public class ListaRutasFragment extends Fragment {
         botonVolver = vista.findViewById(R.id.boton_volver);
         contenedor = vista.findViewById(R.id.contenedor);
 
-        botonVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_listarutas_to_nav_inicio);
-            }
-        });
+        Bundle datosRecuperados = getArguments();
+        if (datosRecuperados != null) {
+            Parada parada = (Parada) datosRecuperados.getSerializable("PARADA");
+            addcaja(parada);
+
+        }
 
 
 

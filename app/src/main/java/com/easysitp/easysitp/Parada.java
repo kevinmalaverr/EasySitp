@@ -1,8 +1,9 @@
 package com.easysitp.easysitp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Parada {
+public class Parada implements Serializable {
 
     private ArrayList<Ruta> rutas = new ArrayList<Ruta>();
     private String nombre;
