@@ -34,8 +34,6 @@ public class ListaRutasFragment extends Fragment {
 
         }
 
-
-
         return vista;
     }
 
@@ -48,8 +46,8 @@ public class ListaRutasFragment extends Fragment {
             TextView horaLlegada = caja.findViewById(R.id.hora_llegada);
             TextView minutosRestantes = caja.findViewById(R.id.minutos_restantes);
 
-            nombreRuta.setText(ruta.NombreRuta);
-            numeroRuta.setText(ruta.numeroRuta);
+            nombreRuta.setText(ruta.getNombreRuta());
+            numeroRuta.setText(ruta.getNumeroRuta());
 
             contenedor.addView(caja);
         }

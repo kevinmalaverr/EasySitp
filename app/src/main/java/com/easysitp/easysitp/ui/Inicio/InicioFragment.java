@@ -38,6 +38,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class InicioFragment extends Fragment implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
@@ -58,20 +60,8 @@ public class InicioFragment extends Fragment implements
     View vista;  // permite accceder al fragment
     private boolean mPermissionDenied = false;
     private GoogleMap mMap;
-
-
-    // markers
-    private static final LatLng EST_CONCHA = new LatLng(4.638546, -74.087559);
-    private static final LatLng EST_CYT = new LatLng(4.638306, -74.084881);
-    private static final LatLng EST_CADE = new LatLng(4.637884, -74.081530);
-    private static final LatLng EST_SINDU = new LatLng(4.635797, -74.080880);
-    private static final LatLng EST_ENFERMERIA = new LatLng(4.635088, -74.085218);
-
-    private Marker estConcha;
-    private Marker estCyt;
-    private Marker estCade;
-    private Marker estSindu;
-    private Marker estEnfermeria;
+    Bitmap smallMarker;
+    BitmapDescriptor smallMarkerIcon;
 
     public Parada parada;
 
@@ -120,50 +110,28 @@ public class InicioFragment extends Fragment implements
 
         Paraderos.ini();
 
-
         LatLng latLng = new LatLng(4.634450, -74.082563);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
-
 
         int height = 100;
         int width = 80;
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_parada);
-        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-        BitmapDescriptor smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
 
+        addParadas(Paraderos.listaParadas);
 
-        estConcha = mMap.addMarker(new MarkerOptions()
-                .position(EST_CONCHA)
-                .title(Paraderos.paradaConcha.getNombre())
-                .icon(smallMarkerIcon));
-        estConcha.setTag(Paraderos.paradaConcha);
+    }
 
-        estCyt = mMap.addMarker(new MarkerOptions()
-                .position(EST_CYT)
-                .title(Paraderos.paradaCyt.getNombre())
-                .icon(smallMarkerIcon));
-        estCyt.setTag(Paraderos.paradaCyt);
-
-        estCade = mMap.addMarker(new MarkerOptions()
-                .position(EST_CADE)
-                .title(Paraderos.paradaCade.getNombre())
-                .icon(smallMarkerIcon));
-        estCade.setTag(Paraderos.paradaCade);
-
-
-        estSindu = mMap.addMarker(new MarkerOptions()
-                .position(EST_SINDU)
-                .title(Paraderos.paradaSindu.getNombre())
-                .icon(smallMarkerIcon));
-        estSindu.setTag(Paraderos.paradaSindu);
-
-        estEnfermeria = mMap.addMarker(new MarkerOptions()
-                .position(EST_ENFERMERIA)
-                .title(Paraderos.paradaEnfermeria.getNombre())
-                .icon(smallMarkerIcon));
-        estEnfermeria.setTag(Paraderos.paradaEnfermeria);
-
-
+    private void addParadas(ArrayList<Parada> lista) {
+        for (int i = 0; i < lista.size(); i++) {
+            Parada paradaActual = Paraderos.listaParadas.get(i);
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(paradaActual.getCoordenadas())
+                    .title(paradaActual.getNombre())
+                    .icon(smallMarkerIcon));
+            marker.setTag(paradaActual);
+        }
     }
 
     /**

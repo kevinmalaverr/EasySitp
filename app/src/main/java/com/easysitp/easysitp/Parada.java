@@ -23,6 +23,10 @@ public class Parada implements Serializable {
         this.coordenadas = new LatLng(lat, lon);
     }
 
+    public LatLng getCoordenadas() {
+        return this.coordenadas;
+    }
+
     public ArrayList<Ruta> getRutas() {
         return this.rutas;
     }

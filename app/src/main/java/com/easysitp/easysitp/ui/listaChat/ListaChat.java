@@ -47,14 +47,14 @@ public class ListaChat extends Fragment {
             final TextView nombreRuta = caja.findViewById(R.id.nombre_ruta);
             TextView numeroRuta = caja.findViewById(R.id.numero_ruta);
 
-            nombreRuta.setText(ruta.NombreRuta);
-            numeroRuta.setText(ruta.numeroRuta);
+            nombreRuta.setText(ruta.getNombreRuta());
+            numeroRuta.setText(ruta.getNumeroRuta());
 
             caja.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle datos = new Bundle();
-                    datos.putString("RUTA", ruta.numeroRuta);
+                    datos.putString("RUTA", ruta.getNumeroRuta());
                     Fragment fragmento = new PublicacionesFragment();
                     fragmento.setArguments(datos);
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
