@@ -1,5 +1,7 @@
 package com.easysitp.easysitp;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,6 +9,7 @@ public class Parada implements Serializable {
 
     private ArrayList<Ruta> rutas = new ArrayList<Ruta>();
     private String nombre;
+    private LatLng coordenadas;
 
     public Parada(String nombre) {
         this.nombre = nombre;
@@ -14,6 +17,10 @@ public class Parada implements Serializable {
 
     public void add(Ruta ruta) {
         this.rutas.add(ruta);
+    }
+
+    public void setCoordenadas(double lat, double lon) {
+        this.coordenadas = new LatLng(lat, lon);
     }
 
     public ArrayList<Ruta> getRutas() {

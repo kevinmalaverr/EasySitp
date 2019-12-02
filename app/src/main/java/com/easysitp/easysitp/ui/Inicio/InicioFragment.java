@@ -120,6 +120,7 @@ public class InicioFragment extends Fragment implements
 
         Paraderos.ini();
 
+
         LatLng latLng = new LatLng(4.634450, -74.082563);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
