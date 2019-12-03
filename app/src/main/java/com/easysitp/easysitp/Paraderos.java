@@ -49,9 +49,11 @@ public class Paraderos {
                 {4.63767, -74.08448}, {4.63799, -74.08464}});
 
 
-        paradaEntradaCll53 = new Parada("Entrada calle 53");
+
+                paradaEntradaCll53 = new Parada("Entrada calle 53");
         paradaEntradaCll53.setCoordenadas(4.6438, -74.08307);
         paradaEntradaCll53.add(ruta_c24);
+
 
         paradaCyt = new Parada("CyT");
         paradaCyt.setCoordenadas(4.63799, -74.08464);
