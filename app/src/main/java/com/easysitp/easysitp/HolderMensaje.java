@@ -15,9 +15,9 @@ public class HolderMensaje extends RecyclerView.ViewHolder {
 
     public HolderMensaje(@NonNull View itemView) {
         super(itemView);
-        nombre=(TextView) itemView.findViewById(R.id.nombreMensaje);
-        mensaje= (TextView) itemView.findViewById(R.id.nombreMensaje);
-        hora= (TextView) itemView.findViewById(R.id.horaMensaje);
+        nombre = itemView.findViewById(R.id.mensajeMensaje);
+        mensaje = itemView.findViewById(R.id.nombreMensaje);
+        hora = itemView.findViewById(R.id.horaMensaje);
 
     }
 

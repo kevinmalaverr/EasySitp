@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
@@ -121,6 +123,12 @@ public class InicioFragment extends Fragment implements
 
         addParadas(Paraderos.listaParadas);
 
+        mMap.addPolyline(new PolylineOptions()
+                .add(Paraderos.ruta_87.getCoordenas())
+                .width(15)
+                .color(Color.BLUE)
+                .geodesic(true));
+
     }
 
     private void addParadas(ArrayList<Parada> lista) {
@@ -133,6 +141,7 @@ public class InicioFragment extends Fragment implements
             marker.setTag(paradaActual);
         }
     }
+
 
     /**
      * Enables the My Location layer if the fine location permission has been granted.

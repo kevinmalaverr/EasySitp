@@ -101,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(user.getPhotoUrl()).into(imageView);
     }
 
+
+    public String getDataFragment() {
+        return NombreUsuario.getText().toString();
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();

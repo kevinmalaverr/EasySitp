@@ -1,5 +1,9 @@
 package com.easysitp.easysitp;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+
 public class Ruta {
     private String numeroRuta;
     private String nombreRuta;
@@ -12,6 +16,19 @@ public class Ruta {
 
     public void setCoordenadas(double[][] coordenadas) {
         this.coordenadas = coordenadas;
+    }
+
+    public LatLng[] getCoordenas() {
+        ArrayList<LatLng> lis = new ArrayList<>();
+
+        for (int i = 0; i < coordenadas.length; i++) {
+            double[] lalo = coordenadas[i];
+            LatLng latLng = new LatLng(lalo[0], lalo[1]);
+            lis.add(latLng);
+        }
+        LatLng[] array = lis.toArray(new LatLng[lis.size()]);
+
+        return array;
     }
 
     public String getNumeroRuta() {

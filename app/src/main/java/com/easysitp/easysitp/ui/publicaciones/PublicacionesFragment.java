@@ -17,9 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.easysitp.easysitp.AdapterMensajes;
+import com.easysitp.easysitp.MainActivity;
 import com.easysitp.easysitp.MensajeEnviar;
 import com.easysitp.easysitp.MensajeRecibir;
 import com.easysitp.easysitp.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +41,9 @@ public class PublicacionesFragment extends Fragment {
     private TextView tituloNumeroRuta;
 
     private AdapterMensajes adapter;
+    private GoogleSignInClient mSignInClient;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -64,10 +70,17 @@ public class PublicacionesFragment extends Fragment {
         database= FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Chat/" + ruta);
 
+        MainActivity activity = (MainActivity) getActivity();
+        String recibeDato = activity.getDataFragment();
+
+        nombre.setText(recibeDato);
+
+
         adapter = new AdapterMensajes(getContext());
         LinearLayoutManager l = new LinearLayoutManager(getContext());
         rvMensaje.setLayoutManager(l);
         rvMensaje.setAdapter(adapter);
+
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override

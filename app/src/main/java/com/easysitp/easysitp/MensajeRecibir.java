@@ -12,7 +12,8 @@ public class MensajeRecibir extends Mensaje {
     }
 
     public MensajeRecibir(String mensaje, String nombre, Long hora) {
-        super(mensaje, nombre);
+        setMensaje(mensaje);
+        setNombre(nombre);
         this.hora = hora;
     }
 
