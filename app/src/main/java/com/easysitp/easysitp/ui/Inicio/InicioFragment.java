@@ -4,9 +4,9 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +38,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
@@ -68,68 +67,8 @@ public class InicioFragment extends Fragment implements
     public Parada parada;
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        inicioViewModel = ViewModelProviders.of(this).get(InicioViewModel.class);
-
-        vista = inflater.inflate(R.layout.fragment_inicio, container, false);
-
-        barraInferior = vista.findViewById(R.id.barra_inferior);
-        botonGps = vista.findViewById(R.id.boton_gps);
-        textoVerRutas = vista.findViewById(R.id.texto_ver_rutas);
-        textoNombreParada = vista.findViewById(R.id.texto_nombre_ruta);
-
-        barraInferior.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle datosAEnviar = new Bundle();
-                datosAEnviar.putSerializable("PARADA", parada);
-                Fragment fragmento = new ListaRutasFragment();
-                fragmento.setArguments(datosAEnviar);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, fragmento);
-                fragmentTransaction.addToBackStack(null);
-
-                fragmentTransaction.commit();
-
-            }
-        });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        return vista;
-    }
-
-    @Override
-    public void onMapReady(GoogleMap map) {
-        mMap = map;
-        mMap.setOnMyLocationButtonClickListener(this);
-        mMap.setOnMyLocationClickListener(this);
-        mMap.setOnMarkerClickListener(this);
-        enableMyLocation();
-
-        Paraderos.ini();
-
-        LatLng latLng = new LatLng(4.634450, -74.082563);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
-
-        int height = 100;
-        int width = 80;
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_parada);
-        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-        smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
-
-        addParadas(Paraderos.listaParadas);
-
-        mMap.addPolyline(new PolylineOptions()
-                .add(Paraderos.ruta_87.getCoordenas())
-                .width(15)
-                .color(Color.BLUE)
-                .geodesic(true));
-
-    }
+    private static LatLng LOWER_MANHATTAN;
+    private static LatLng BROOKLYN_BRIDGE;
 
     private void addParadas(ArrayList<Parada> lista) {
         for (int i = 0; i < lista.size(); i++) {
@@ -212,4 +151,87 @@ public class InicioFragment extends Fragment implements
 
         return false;
     }
+
+    private static LatLng WALL_STREET;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        inicioViewModel = ViewModelProviders.of(this).get(InicioViewModel.class);
+
+        vista = inflater.inflate(R.layout.fragment_inicio, container, false);
+
+        barraInferior = vista.findViewById(R.id.barra_inferior);
+        botonGps = vista.findViewById(R.id.boton_gps);
+        textoVerRutas = vista.findViewById(R.id.texto_ver_rutas);
+        textoNombreParada = vista.findViewById(R.id.texto_nombre_ruta);
+
+        barraInferior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle datosAEnviar = new Bundle();
+                datosAEnviar.putSerializable("PARADA", parada);
+                Fragment fragmento = new ListaRutasFragment();
+                fragmento.setArguments(datosAEnviar);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragmento);
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.commit();
+
+            }
+        });
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+
+        return vista;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        mMap.setOnMyLocationButtonClickListener(this);
+        mMap.setOnMyLocationClickListener(this);
+        mMap.setOnMarkerClickListener(this);
+        enableMyLocation();
+
+        Paraderos.ini();
+
+        LatLng latLng = new LatLng(4.634450, -74.082563);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+
+        int height = 100;
+        int width = 80;
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_parada);
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
+
+        addParadas(Paraderos.listaParadas);
+
+
+        String url = getMapsApiDirectionsUrl();
+        Log.i("info", url);
+    }
+
+    private String getMapsApiDirectionsUrl() {
+        LOWER_MANHATTAN = Paraderos.paradaAgrarias.getCoordenadas();
+        BROOKLYN_BRIDGE = Paraderos.paradaBiblioteca.getCoordenadas();
+        WALL_STREET = Paraderos.paradaCyt.getCoordenadas();
+
+        String origin = "origin=" + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude;
+        String waypoints = "waypoints=optimize:true|" + BROOKLYN_BRIDGE.latitude + "," + BROOKLYN_BRIDGE.longitude + "|";
+        String destination = "destination=" + WALL_STREET.latitude + "," + WALL_STREET.longitude;
+
+        String sensor = "sensor=false";
+        String params = origin + "&" + waypoints + "&" + destination + "&" + sensor;
+        String output = "json";
+        String key = "&key=AIzaSyC0cS5GzPZxwrm1NLt_i30roitcHlSmO40";
+        String url = "https://maps.googleapis.com/maps/api/directions/"
+                + output + "?" + params + "&" + key;
+        Log.i("api", url);
+        return url;
+    }
+
 }
