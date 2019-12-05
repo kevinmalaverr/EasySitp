@@ -28,6 +28,7 @@ import com.easysitp.easysitp.Parada;
 import com.easysitp.easysitp.Paraderos;
 import com.easysitp.easysitp.PermissionUtils;
 import com.easysitp.easysitp.R;
+import com.easysitp.easysitp.Route;
 import com.easysitp.easysitp.ui.listarutas.ListaRutasFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -185,7 +186,6 @@ public class InicioFragment extends Fragment implements
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
         return vista;
     }
 
@@ -210,9 +210,8 @@ public class InicioFragment extends Fragment implements
 
         addParadas(Paraderos.listaParadas);
 
-
-        String url = getMapsApiDirectionsUrl();
-        Log.i("info", url);
+        Route route = new Route();
+        route.drawRoute(mMap, getContext(), Paraderos.paradaAgrarias.getCoordenadas(), Paraderos.paradaBiblioteca.getCoordenadas(), "es");
     }
 
     private String getMapsApiDirectionsUrl() {
@@ -228,7 +227,7 @@ public class InicioFragment extends Fragment implements
         String params = origin + "&" + waypoints + "&" + destination + "&" + sensor;
         String output = "json";
         String key = "&key=AIzaSyC0cS5GzPZxwrm1NLt_i30roitcHlSmO40";
-        String url = "https://maps.googleapis.com/maps/api/directions/"
+        String url = "http://maps.googleapis.com/maps/api/directions/"
                 + output + "?" + params + "&" + key;
         Log.i("api", url);
         return url;
