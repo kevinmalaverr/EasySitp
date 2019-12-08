@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +23,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.easysitp.easysitp.Parada;
-import com.easysitp.easysitp.Paraderos;
-import com.easysitp.easysitp.PermissionUtils;
 import com.easysitp.easysitp.R;
-import com.easysitp.easysitp.Route;
 import com.easysitp.easysitp.ui.listarutas.ListaRutasFragment;
+import com.easysitp.easysitp.utils.PermissionUtils;
+import com.easysitp.easysitp.viaje.Parada;
+import com.easysitp.easysitp.viaje.Paraderos;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -186,6 +184,7 @@ public class InicioFragment extends Fragment implements
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
         return vista;
     }
 
@@ -209,28 +208,6 @@ public class InicioFragment extends Fragment implements
         smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
 
         addParadas(Paraderos.listaParadas);
-
-        Route route = new Route();
-        route.drawRoute(mMap, getContext(), Paraderos.paradaAgrarias.getCoordenadas(), Paraderos.paradaBiblioteca.getCoordenadas(), "es");
-    }
-
-    private String getMapsApiDirectionsUrl() {
-        LOWER_MANHATTAN = Paraderos.paradaAgrarias.getCoordenadas();
-        BROOKLYN_BRIDGE = Paraderos.paradaBiblioteca.getCoordenadas();
-        WALL_STREET = Paraderos.paradaCyt.getCoordenadas();
-
-        String origin = "origin=" + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude;
-        String waypoints = "waypoints=optimize:true|" + BROOKLYN_BRIDGE.latitude + "," + BROOKLYN_BRIDGE.longitude + "|";
-        String destination = "destination=" + WALL_STREET.latitude + "," + WALL_STREET.longitude;
-
-        String sensor = "sensor=false";
-        String params = origin + "&" + waypoints + "&" + destination + "&" + sensor;
-        String output = "json";
-        String key = "&key=AIzaSyC0cS5GzPZxwrm1NLt_i30roitcHlSmO40";
-        String url = "http://maps.googleapis.com/maps/api/directions/"
-                + output + "?" + params + "&" + key;
-        Log.i("api", url);
-        return url;
     }
 
 }

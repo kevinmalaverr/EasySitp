@@ -16,11 +16,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.easysitp.easysitp.AdapterMensajes;
 import com.easysitp.easysitp.MainActivity;
-import com.easysitp.easysitp.MensajeEnviar;
-import com.easysitp.easysitp.MensajeRecibir;
 import com.easysitp.easysitp.R;
+import com.easysitp.easysitp.ui.publicaciones.chat.AdapterMensajes;
+import com.easysitp.easysitp.ui.publicaciones.chat.MensajeEnviar;
+import com.easysitp.easysitp.ui.publicaciones.chat.MensajeRecibir;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;

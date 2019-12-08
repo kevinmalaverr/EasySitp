@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.easysitp.easysitp.Paraderos;
 import com.easysitp.easysitp.R;
-import com.easysitp.easysitp.Ruta;
 import com.easysitp.easysitp.ui.publicaciones.PublicacionesFragment;
+import com.easysitp.easysitp.viaje.Paraderos;
+import com.easysitp.easysitp.viaje.Ruta;
 
 import java.util.ArrayList;
 

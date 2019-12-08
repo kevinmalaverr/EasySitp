@@ -4,13 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.text.Html;
 import android.util.Log;
 
+import com.easysitp.easysitp.utils.JSONParser;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -18,8 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,24 +44,8 @@ public class Route {
     GoogleMap mMap;
     Context context;
     String lang;
-
-    public boolean drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, boolean withIndications, String language, boolean optimize) {
-        mMap = map;
-        context = c;
-        lang = language;
-        if (points.size() == 2) {
-            String url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, "driving");
-            new connectAsyncTask(url, withIndications).execute();
-            return true;
-        } else if (points.size() > 2) {
-            String url = makeURL(points, "driving", optimize);
-            new connectAsyncTask(url, withIndications).execute();
-            return true;
-        }
-
-        return false;
-
-    }
+    String distancia;
+    Guardar guardar;
 
     public boolean drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, String language, boolean optimize) {
         mMap = map;
@@ -85,39 +65,6 @@ public class Route {
 
     }
 
-
-    public boolean drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, String mode, boolean withIndications, String language, boolean optimize) {
-        mMap = map;
-        context = c;
-        lang = language;
-        if (points.size() == 2) {
-            String url = makeURL(points.get(0).latitude, points.get(0).longitude, points.get(1).latitude, points.get(1).longitude, mode);
-            new connectAsyncTask(url, withIndications).execute();
-            return true;
-        } else if (points.size() > 2) {
-            String url = makeURL(points, mode, optimize);
-            new connectAsyncTask(url, withIndications).execute();
-            return true;
-        }
-
-        return false;
-
-    }
-
-    //
-
-
-    public void drawRoute(GoogleMap map, Context c, LatLng source, LatLng dest, boolean withIndications, String language) {
-        mMap = map;
-        context = c;
-
-        String url = makeURL(source.latitude, source.longitude, dest.latitude, dest.longitude, "driving");
-        new connectAsyncTask(url, withIndications).execute();
-        lang = language;
-
-    }
-
-
     public void drawRoute(GoogleMap map, Context c, LatLng source, LatLng dest, String language) {
         mMap = map;
         context = c;
@@ -128,18 +75,25 @@ public class Route {
 
     }
 
+    public static String getDistancia(String result) {
+        final JSONObject json;
+        try {
+            json = new JSONObject(result);
+            JSONArray routeArray = json.getJSONArray("routes");
+            JSONObject routes = routeArray.getJSONObject(0);
+            JSONArray arrayLegs = routes.getJSONArray("legs");
+            JSONObject legs = arrayLegs.getJSONObject(0);
+            Step step = new Step(legs);
 
-    public void drawRoute(GoogleMap map, Context c, LatLng source, LatLng dest, String mode, boolean withIndications, String language) {
-        mMap = map;
-        context = c;
+            return step.distance;
 
-        String url = makeURL(source.latitude, source.longitude, dest.latitude, dest.longitude, mode);
-        new connectAsyncTask(url, withIndications).execute();
-        lang = language;
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "no";
     }
 
-    private String makeURL(ArrayList<LatLng> points, String mode, boolean optimize) {
+    public String makeURL(ArrayList<LatLng> points, String mode, boolean optimize) {
         StringBuilder urlString = new StringBuilder();
 
         if (mode == null)
@@ -173,28 +127,6 @@ public class Route {
         urlString.append("&sensor=true&mode=" + mode);
 
 
-        return urlString.toString();
-    }
-
-    private String makeURL(double sourcelat, double sourcelog, double destlat, double destlog, String mode) {
-        StringBuilder urlString = new StringBuilder();
-
-        if (mode == null)
-            mode = "driving";
-
-        urlString.append("https://maps.googleapis.com/maps/api/directions/json");
-        urlString.append("?origin=");// from
-        urlString.append(sourcelat);
-        urlString.append(",");
-        urlString
-                .append(sourcelog);
-        urlString.append("&destination=");// to
-        urlString
-                .append(destlat);
-        urlString.append(",");
-        urlString.append(destlog);
-        urlString.append("&sensor=false&mode=" + mode + "&alternatives=true&language=" + lang);
-        urlString.append("&key=AIzaSyC0cS5GzPZxwrm1NLt_i30roitcHlSmO40");
         return urlString.toString();
     }
 
@@ -232,6 +164,29 @@ public class Route {
         return poly;
     }
 
+    public String makeURL(double sourcelat, double sourcelog, double destlat, double destlog, String mode) {
+        StringBuilder urlString = new StringBuilder();
+
+        if (mode == null)
+            mode = "driving";
+
+        urlString.append("https://maps.googleapis.com/maps/api/directions/json");
+        urlString.append("?origin=");// from
+        urlString.append(sourcelat);
+        urlString.append(",");
+        urlString
+                .append(sourcelog);
+        urlString.append("&destination=");// to
+        urlString
+                .append(destlat);
+        urlString.append(",");
+        urlString.append(destlog);
+        urlString.append("&sensor=false&mode=" + mode + "&alternatives=true&language=" + lang);
+        urlString.append("&key=AIzaSyC0cS5GzPZxwrm1NLt_i30roitcHlSmO40");
+
+        return urlString.toString();
+    }
+
     private void drawPath(String result, boolean withSteps) {
 
         try {
@@ -258,21 +213,13 @@ public class Route {
                 JSONObject legs = arrayLegs.getJSONObject(0);
                 JSONArray stepsArray = legs.getJSONArray("steps");
                 //put initial point
-
-                for (int i = 0; i < stepsArray.length(); i++) {
-                    Step step = new Step(stepsArray.getJSONObject(i));
-                    mMap.addMarker(new MarkerOptions()
-                            .position(step.location)
-                            .title(step.distance)
-                            .snippet(step.instructions)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
-                }
             }
 
         } catch (JSONException e) {
 
+
         }
+
     }
 
     private class connectAsyncTask extends AsyncTask<Void, Void, String> {
@@ -314,34 +261,16 @@ public class Route {
         }
     }
 
-    /**
-     * Class that represent every step of the directions. It store distance, location and instructions
-     */
-    private class Step {
+    public static class Step {
         public String distance;
-        public LatLng location;
-        public String instructions;
 
         Step(JSONObject stepJSON) {
-            JSONObject startLocation;
             try {
-
-                distance = stepJSON.getJSONObject("distance").getString("text");
-                startLocation = stepJSON.getJSONObject("start_location");
-                location = new LatLng(startLocation.getDouble("lat"), startLocation.getDouble("lng"));
-                try {
-                    instructions = URLDecoder.decode(Html.fromHtml(stepJSON.getString("html_instructions")).toString(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
+                distance = stepJSON.getJSONObject("distance").getString("value");
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
     }
-
-
 }

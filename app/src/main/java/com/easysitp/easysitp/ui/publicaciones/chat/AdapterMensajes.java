@@ -1,4 +1,4 @@
-package com.easysitp.easysitp;
+package com.easysitp.easysitp.ui.publicaciones.chat;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.easysitp.easysitp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

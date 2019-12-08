@@ -1,4 +1,4 @@
-package com.easysitp.easysitp;
+package com.easysitp.easysitp.viaje;
 
 import com.google.android.gms.maps.model.LatLng;
 

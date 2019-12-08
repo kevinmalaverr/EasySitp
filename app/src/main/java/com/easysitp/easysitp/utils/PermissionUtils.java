@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easysitp.easysitp;
+package com.easysitp.easysitp.utils;
 
 import android.Manifest;
 import android.app.AlertDialog;

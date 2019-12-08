@@ -1,4 +1,4 @@
-package com.easysitp.easysitp;
+package com.easysitp.easysitp.ui.publicaciones.chat;
 
 import java.util.Map;
 

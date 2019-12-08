@@ -68,10 +68,13 @@ public class ContactenosFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String mensaje = sugerencia_enviar.getText().toString();
 
+
                         Map<String, Object> envio_mensaje = new HashMap<>();
                         envio_mensaje.put("Sugerencia", mensaje);
                         mRootReference.child("Mensaje de sugerencia").push().setValue(envio_mensaje);
                         sugerencia_enviar.setText("");
+
+
                         Toast.makeText(getActivity(), "Mensaje enviado", Toast.LENGTH_SHORT).show();
 
                     }

@@ -1,10 +1,12 @@
-package com.easysitp.easysitp;
+package com.easysitp.easysitp.ui.publicaciones.chat;
 
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.easysitp.easysitp.R;
 
 
 public class HolderMensaje extends RecyclerView.ViewHolder {

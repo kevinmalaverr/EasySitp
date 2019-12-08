@@ -1,4 +1,4 @@
-package com.easysitp.easysitp;
+package com.easysitp.easysitp.utils;
 
 /**
  * @author zeeshan0026
