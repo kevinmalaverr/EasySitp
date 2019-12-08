@@ -22,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ListaRutasFragment extends Fragment {
 
     View vista;
@@ -60,12 +63,12 @@ public class ListaRutasFragment extends Fragment {
 
             nombreRuta.setText(ruta.getNombreRuta());
             numeroRuta.setText(ruta.getNumeroRuta());
-            getdatos(ruta.getNumeroRuta(), parada, minutosRestantes);
+            getdatos(ruta.getNumeroRuta(), parada, minutosRestantes, horaLlegada);
             contenedor.addView(caja);
         }
     }
 
-    public void getdatos(String numeroRuta, final Parada parada, final TextView texv) {
+    public void getdatos(String numeroRuta, final Parada parada, final TextView texv, final TextView hora) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference("ubicacion_buses").child(numeroRuta);
@@ -86,7 +89,12 @@ public class ListaRutasFragment extends Fragment {
                             String d = Route.getDistancia(json);
                             double distancia = Double.parseDouble(d);
                             double tiempo = distancia / velocidad;
+                            Date a = new Date();
+                            a.setTime(System.currentTimeMillis() + (((long) tiempo) * 60 * 1000));
+                            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+
                             texv.setText(String.valueOf(tiempo));
+                            hora.setText(sdf.format(a));
                         }
                     }).start();
                 }
