@@ -203,8 +203,10 @@ public class Route {
                 LatLng dest = list.get(z + 1);
                 Polyline line = mMap.addPolyline(new PolylineOptions()
                         .add(new LatLng(src.latitude, src.longitude), new LatLng(dest.latitude, dest.longitude))
-                        .width(4)
-                        .color(Color.BLUE).geodesic(true));
+                        .width(15)
+                        .color(Color.rgb(52, 151, 253)).geodesic(true));
+
+
             }
 
 
@@ -237,10 +239,6 @@ public class Route {
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage("Fetching route, Please wait...");
-            progressDialog.setIndeterminate(true);
-            progressDialog.show();
         }
 
         @Override
@@ -253,7 +251,6 @@ public class Route {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            progressDialog.hide();
             if (result != null) {
                 drawPath(result, steps);
                 Log.i("error1", result);

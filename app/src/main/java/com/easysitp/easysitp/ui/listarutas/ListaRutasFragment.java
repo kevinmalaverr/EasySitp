@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.easysitp.easysitp.R;
 import com.easysitp.easysitp.Route;
+import com.easysitp.easysitp.ui.rutaactual.RutaActualFragment;
 import com.easysitp.easysitp.utils.JSONParser;
 import com.easysitp.easysitp.viaje.Bus;
 import com.easysitp.easysitp.viaje.Parada;
@@ -51,9 +54,9 @@ public class ListaRutasFragment extends Fragment {
         return vista;
     }
 
-    private void addcaja(Parada parada) {
+    private void addcaja(final Parada parada) {
         for (int i = 0; i < parada.getRutas().size(); i++) {
-            Ruta ruta = parada.getRutas().get(i);
+            final Ruta ruta = parada.getRutas().get(i);
 
             caja = LayoutInflater.from(getContext()).inflate(R.layout.caja_ruta, contenedor, false);
             TextView nombreRuta = caja.findViewById(R.id.nombre_ruta);
@@ -64,6 +67,25 @@ public class ListaRutasFragment extends Fragment {
             nombreRuta.setText(ruta.getNombreRuta());
             numeroRuta.setText(ruta.getNumeroRuta());
             getdatos(ruta.getNumeroRuta(), parada, minutosRestantes, horaLlegada);
+            caja.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle datosAEnviar = new Bundle();
+                    datosAEnviar.putString("nRuta", ruta.getNumeroRuta());
+                    datosAEnviar.putString("noRuta", ruta.getNombreRuta());
+                    datosAEnviar.putSerializable("parada", parada);
+                    Fragment fragmento = new RutaActualFragment();
+                    fragmento.setArguments(datosAEnviar);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, fragmento);
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
+                }
+            });
+
+
             contenedor.addView(caja);
         }
     }
@@ -79,6 +101,7 @@ public class ListaRutasFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Bus bus = snapshot.getValue(Bus.class);
                     Route route = new Route();
+
                     final double velocidad = bus.velocidad;
                     final String url = route.makeURL(bus.latitud, bus.longitud, parada.getCoordenadas().latitude, parada.getCoordenadas().longitude, null);
 
@@ -93,7 +116,7 @@ public class ListaRutasFragment extends Fragment {
                             a.setTime(System.currentTimeMillis() + (((long) tiempo) * 60 * 1000));
                             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
 
-                            texv.setText(String.valueOf(tiempo));
+                            texv.setText(String.valueOf((int) tiempo));
                             hora.setText(sdf.format(a));
                         }
                     }).start();
