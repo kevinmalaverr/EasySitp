@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/SplashThemeMorado">
+            android:theme="@style/SplashTheme">
 
         </activity>
         <!--

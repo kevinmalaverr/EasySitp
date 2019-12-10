@@ -112,14 +112,14 @@ public class RutaActualFragment extends Fragment implements
         LatLng latLng = new LatLng(4.634450, -74.082563);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
-        int height = 100;
-        int width = 80;
+        int height = 120;
+        int width = 100;
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.marcador_parada);
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
         smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
 
         Bitmap mbus = BitmapFactory.decodeResource(getResources(), R.drawable.bus);
-        smallMarkerBus = Bitmap.createScaledBitmap(mbus, 70, 100, false);
+        smallMarkerBus = Bitmap.createScaledBitmap(mbus, 80, 120, false);
         smallMarkerIconBus = BitmapDescriptorFactory.fromBitmap(smallMarkerBus);
 
         Bundle datosRecuperados = getArguments();

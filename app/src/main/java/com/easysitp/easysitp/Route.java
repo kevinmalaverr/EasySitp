@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -203,9 +204,10 @@ public class Route {
                 LatLng dest = list.get(z + 1);
                 Polyline line = mMap.addPolyline(new PolylineOptions()
                         .add(new LatLng(src.latitude, src.longitude), new LatLng(dest.latitude, dest.longitude))
-                        .width(15)
+                        .width(20)
+                        .endCap(new RoundCap())
+                        .startCap(new RoundCap())
                         .color(Color.rgb(52, 151, 253)).geodesic(true));
-
             }
 
 
