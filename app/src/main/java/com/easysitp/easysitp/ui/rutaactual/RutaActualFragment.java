@@ -140,6 +140,7 @@ public class RutaActualFragment extends Fragment implements
                     .position(parada.getCoordenadas())
                     .icon(smallMarkerIconBus));
 
+
             getdatos(nRuta, parada, tiempo, hora);
         }
     }
@@ -159,13 +160,6 @@ public class RutaActualFragment extends Fragment implements
                     route.drawRoute(mMap, getContext(), busCoor, parada.getCoordenadas(), "es");
                     final double velocidad = bus.velocidad;
                     final String url = route.makeURL(bus.latitud, bus.longitud, parada.getCoordenadas().latitude, parada.getCoordenadas().longitude, null);
-
-                    markerBus.remove();
-                    markerBus = mMap.addMarker(new MarkerOptions()
-                            .position(busCoor)
-                            .icon(smallMarkerIconBus));
-
-
                     new Thread(new Runnable() {
                         public void run() {
                             JSONParser jParser = new JSONParser();
@@ -181,6 +175,16 @@ public class RutaActualFragment extends Fragment implements
                             hora.setText(sdf.format(a));
                         }
                     }).start();
+
+                    mMap.clear();
+                    markerParada = mMap.addMarker(new MarkerOptions()
+                            .position(parada.getCoordenadas())
+                            .title(parada.getNombre())
+                            .icon(smallMarkerIcon));
+
+                    markerBus = mMap.addMarker(new MarkerOptions()
+                            .position(busCoor)
+                            .icon(smallMarkerIconBus));
                 }
             }
 

@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,7 +23,7 @@ public class ListaChat extends Fragment {
 
     View vista;
     View caja;
-    Button botonVolver;
+    ConstraintLayout botonVolver;
     ViewGroup contenedor;
     TextView texto;
 
@@ -34,6 +34,14 @@ public class ListaChat extends Fragment {
         // Inflate the layout for this fragment}
         vista = inflater.inflate(R.layout.fragment_lista_chat, container, false);
         contenedor = vista.findViewById(R.id.contenedor);
+        botonVolver = vista.findViewById(R.id.boton_volver);
+
+        botonVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         addChats(Paraderos.getRutas());
         return vista;
@@ -59,6 +67,7 @@ public class ListaChat extends Fragment {
                     fragmento.setArguments(datos);
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
                     fragmentTransaction.replace(R.id.nav_host_fragment, fragmento);
                     fragmentTransaction.addToBackStack(null);
 

@@ -68,6 +68,7 @@ public class LogoutFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        getActivity().onBackPressed();
                     }
                 })
                 .setCancelable(false)

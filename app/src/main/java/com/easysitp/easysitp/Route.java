@@ -206,7 +206,6 @@ public class Route {
                         .width(15)
                         .color(Color.rgb(52, 151, 253)).geodesic(true));
 
-
             }
 
 

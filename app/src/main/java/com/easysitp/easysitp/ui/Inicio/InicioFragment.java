@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.easysitp.easysitp.MainActivity;
 import com.easysitp.easysitp.R;
 import com.easysitp.easysitp.ui.listarutas.ListaRutasFragment;
 import com.easysitp.easysitp.utils.PermissionUtils;
@@ -55,6 +57,7 @@ public class InicioFragment extends Fragment implements
     ConstraintLayout barraInferior; //barra inferior pequeña
     TextView textoVerRutas;
     TextView textoNombreParada;
+    ConstraintLayout botonVolver;
 
     // interfaz
     View vista;  // permite accceder al fragment
@@ -147,11 +150,8 @@ public class InicioFragment extends Fragment implements
         this.parada = (Parada) marker.getTag();
 
 
-
         return false;
     }
-
-    private static LatLng WALL_STREET;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -163,6 +163,17 @@ public class InicioFragment extends Fragment implements
         botonGps = vista.findViewById(R.id.boton_gps);
         textoVerRutas = vista.findViewById(R.id.texto_ver_rutas);
         textoNombreParada = vista.findViewById(R.id.texto_nombre_ruta);
+        botonVolver = vista.findViewById(R.id.boton_volver);
+
+        botonVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity activity = (MainActivity) getActivity();
+                activity.getDrawer().openDrawer(Gravity.LEFT);
+            }
+        });
+
+
 
         barraInferior.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +184,7 @@ public class InicioFragment extends Fragment implements
                 fragmento.setArguments(datosAEnviar);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.arriba, R.anim.salir);
                 fragmentTransaction.replace(R.id.nav_host_fragment, fragmento);
                 fragmentTransaction.addToBackStack(null);
 

@@ -43,6 +43,13 @@ public class ListaRutasFragment extends Fragment {
         botonVolver = vista.findViewById(R.id.boton_volver);
         contenedor = vista.findViewById(R.id.contenedor);
 
+        botonVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         Bundle datosRecuperados = getArguments();
         if (datosRecuperados != null) {
             Parada parada = (Parada) datosRecuperados.getSerializable("PARADA");
@@ -78,6 +85,7 @@ public class ListaRutasFragment extends Fragment {
                     fragmento.setArguments(datosAEnviar);
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.abajo, R.anim.salir);
                     fragmentTransaction.replace(R.id.nav_host_fragment, fragmento);
                     fragmentTransaction.addToBackStack(null);
 

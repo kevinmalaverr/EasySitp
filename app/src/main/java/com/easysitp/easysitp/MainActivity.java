@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     TextView NombreUsuario;
     TextView TextCorreo;
-    TextView TextidUsuario;
     private Context context;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         imageView = view.findViewById(R.id.imageView);
         NombreUsuario = view.findViewById(R.id.NombreUsuario);
         TextCorreo = view.findViewById(R.id.TextCorreo);
-        TextidUsuario = view.findViewById(R.id.TextidUusario);
-
-
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -64,10 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.addHeaderView(view);
-
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -99,13 +94,16 @@ public class MainActivity extends AppCompatActivity {
     private void setUserData(FirebaseUser user) {
         NombreUsuario.setText(user.getDisplayName());
         TextCorreo.setText(user.getEmail());
-        TextidUsuario.setText(user.getUid());
         Glide.with(this).load(user.getPhotoUrl()).into(imageView);
     }
 
 
     public String getDataFragment() {
         return NombreUsuario.getText().toString();
+    }
+
+    public DrawerLayout getDrawer() {
+        return drawer;
     }
 
 
