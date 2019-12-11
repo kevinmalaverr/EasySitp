@@ -20,33 +20,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * @author zeeshan0026 and Fernando Valle
- * http://stackoverflow.com/users/1547539/zeeshan0026
- * http://stackoverflow.com/users/1826257/fernando-valle
- */
-
-
-//for set language look at the web: https://spreadsheets.google.com/spreadsheet/pub?key=0Ah0xU81penP1cDlwZHdzYWkyaERNc0xrWHNvTTA1S1E&gid=1
-// example Spanish "es".
-
 public class Route {
-    static String LANGUAGE_SPANISH = "es";
-    static String LANGUAGE_ENGLISH = "en";
-    static String LANGUAGE_FRENCH = "fr";
-    static String LANGUAGE_GERMAN = "de";
-    static String LANGUAGE_CHINESE_SIMPLIFIED = "zh-CN";
-    static String LANGUAGE_CHINESE_TRADITIONAL = "zh-TW";
-    static String TRANSPORT_DRIVING = "driving";
-    static String TRANSPORT_WALKING = "walking";
-    static String TRANSPORT_BIKE = "bicycling";
-    static String TRANSPORT_TRANSIT = "transit";
     GoogleMap mMap;
     Context context;
     String lang;
     String distancia;
-    Guardar guardar;
 
     public boolean drawRoute(GoogleMap map, Context c, ArrayList<LatLng> points, String language, boolean optimize) {
         mMap = map;
@@ -204,7 +182,7 @@ public class Route {
                 LatLng dest = list.get(z + 1);
                 Polyline line = mMap.addPolyline(new PolylineOptions()
                         .add(new LatLng(src.latitude, src.longitude), new LatLng(dest.latitude, dest.longitude))
-                        .width(20)
+                        .width(10)
                         .endCap(new RoundCap())
                         .startCap(new RoundCap())
                         .color(Color.rgb(52, 151, 253)).geodesic(true));

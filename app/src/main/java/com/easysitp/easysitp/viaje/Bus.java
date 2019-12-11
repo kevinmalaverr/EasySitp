@@ -9,9 +9,14 @@ public class Bus {
     public Bus() {
     }
 
-    public Bus(double lat, double lon, double vel) {
+    public Bus(double lat, double lon, double vel, String ult) {
         this.latitud = lat;
         this.longitud = lon;
         this.velocidad = vel;
+        this.ultimaParada = ult;
+    }
+
+    public void setUltimaParada(String ultimaParada) {
+        this.ultimaParada = ultimaParada;
     }
 }

@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ListaRutasFragment extends Fragment {
@@ -105,9 +106,23 @@ public class ListaRutasFragment extends Fragment {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                ArrayList<Bus> arrayListBus = new ArrayList<>();
+                String nombreBus = null;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Bus bus = snapshot.getValue(Bus.class);
+                    Bus busA = snapshot.getValue(Bus.class);
+                    nombreBus = snapshot.getKey();
+                    String ult = busA.ultimaParada;
+                    if (ult != parada.getNombre()) {
+                        arrayListBus.add(busA);
+                        break;
+                    }
+                }
+
+                final String nBus = nombreBus;
+
+                if (arrayListBus.size() != 0) {
+
+                    final Bus bus = arrayListBus.get(0);
                     Route route = new Route();
 
                     final double velocidad = bus.velocidad;

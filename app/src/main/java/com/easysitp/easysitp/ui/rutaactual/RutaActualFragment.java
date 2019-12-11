@@ -1,6 +1,5 @@
 package com.easysitp.easysitp.ui.rutaactual;
 
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -38,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class RutaActualFragment extends Fragment implements
@@ -76,7 +76,6 @@ public class RutaActualFragment extends Fragment implements
         hora = vista.findViewById(R.id.hora_llegada);
         tiempo = vista.findViewById(R.id.minutos_restantes);
         botonChat = vista.findViewById(R.id.botonChat);
-
 
         Bundle datosRecuperados = getArguments();
         if (datosRecuperados != null) {
@@ -148,13 +147,27 @@ public class RutaActualFragment extends Fragment implements
     public void getdatos(String numeroRuta, final Parada parada, final TextView texv, final TextView hora) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference("ubicacion_buses").child(numeroRuta);
+        final DatabaseReference databaseReference = database.getReference("ubicacion_buses").child(numeroRuta);
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                ArrayList<Bus> arrayListBus = new ArrayList<>();
+                String nombreBus = null;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Bus bus = snapshot.getValue(Bus.class);
+                    Bus busA = snapshot.getValue(Bus.class);
+                    nombreBus = snapshot.getKey();
+                    String ult = busA.ultimaParada;
+                    if (ult != parada.getNombre()) {
+                        arrayListBus.add(busA);
+                        break;
+                    }
+                }
+
+                final String nBus = nombreBus;
+
+                if (arrayListBus.size() != 0) {
+
+                    final Bus bus = arrayListBus.get(0);
                     Route route = new Route();
                     LatLng busCoor = new LatLng(bus.latitud, bus.longitud);
                     route.drawRoute(mMap, getContext(), busCoor, parada.getCoordenadas(), "es");
@@ -166,6 +179,11 @@ public class RutaActualFragment extends Fragment implements
                             String json = jParser.getJSONFromUrl(url);
                             String d = Route.getDistancia(json);
                             double distancia = Double.parseDouble(d);
+                            if (distancia < 10) {
+                                bus.setUltimaParada(parada.getNombre());
+                                databaseReference.child(String.valueOf(nBus)).setValue(bus);
+
+                            }
                             double tiempo = distancia / velocidad;
                             Date a = new Date();
                             a.setTime(System.currentTimeMillis() + (((long) tiempo) * 60 * 1000));
@@ -196,5 +214,4 @@ public class RutaActualFragment extends Fragment implements
         };
         databaseReference.addValueEventListener(valueEventListener);
     }
-
 }
