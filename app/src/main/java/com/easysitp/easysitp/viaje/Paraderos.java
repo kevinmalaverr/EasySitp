@@ -49,11 +49,11 @@ public class Paraderos {
         paradaOdontologia.add(ruta_802);
 
         paradaIEI = new Parada("IEI");
-        paradaIEI.setCoordenadas(4.6370473, -74.0811157);
+        paradaIEI.setCoordenadas(4.6382184, -74.0822255);
         paradaIEI.add(ruta_87);
 
         paradaEconomicas = new Parada("Económicas");
-        paradaEconomicas.setCoordenadas(4.6382184, -74.0822255);
+        paradaEconomicas.setCoordenadas(4.6370473, -74.0811157);
         paradaEconomicas.add(ruta_87);
 
         paradaSindu = new Parada("SINDU");
